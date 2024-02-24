@@ -1,6 +1,24 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import TheHeader from './components/TheHeader.vue'
 import TheNavbar from './components/TheNavbar.vue'
+
+import TheActivities from './pages/TheActivities.vue'
+import TheProgress from './pages/TheProgress.vue'
+import TheTimeline from './pages/TheTimeline.vue'
+
+import { PAGE_ACTIVITIES, PAGE_PROGRESS, PAGE_TIMELINE } from './consts/navigation'
+
+
+const currentPage = ref<string>(normalizePageHash())
+
+function normalizePageHash() {
+  const hash = window.location.hash.slice(1)
+  if([PAGE_ACTIVITIES, PAGE_PROGRESS, PAGE_TIMELINE].includes(hash)) return hash
+  window.location.hash = PAGE_TIMELINE
+  return PAGE_TIMELINE
+}
 </script>
 
 <template>
@@ -8,9 +26,11 @@ import TheNavbar from './components/TheNavbar.vue'
     <TheHeader />
 
     <main class="flex flex-grow flex-col">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae asperiores voluptate, nesciunt repellendus vel placeat sunt maxime? Non reprehenderit similique aliquid expedita voluptas hic, eum adipisci ipsa. Eius, eum necessitatibus!
+      <TheActivities v-show="currentPage === PAGE_ACTIVITIES" />
+      <TheProgress v-show="currentPage === PAGE_PROGRESS" />
+      <TheTimeline v-show="currentPage === PAGE_TIMELINE" />
     </main>
 
-    <TheNavbar />
+    <TheNavbar :current-page="currentPage" @navigate="currentPage = $event" />
   </div>
 </template>
