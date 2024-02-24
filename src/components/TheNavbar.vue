@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NavItem from './NavItem.vue'
 import { ClockIcon, ListBulletIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
 
 const navItems = {
@@ -11,11 +12,9 @@ const navItems = {
 <template>
     <nav class="stiky bottom-0 z-10 bg-white">
         <ul class="flex items-center justify-around border-t">
-          <li v-for="icon, page in navItems" :key="page" class="flex-1">
-            <a v-bind:href="`#${page}`" class="flex flex-col items-center p-2 text-xs capitalize">
-              <component v-bind:is="icon"  class="h-6 w-6" /> {{ page }}
-            </a>
-          </li>
+          <NavItem  v-for="(icon, page) in navItems" :key="page" v-bind:href="`#${page}`">
+            <component v-bind:is="icon" class="h-6 w-6" /> {{ page }}
+          </NavItem>
         </ul>
       </nav>
 </template>
