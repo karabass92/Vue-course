@@ -2,7 +2,22 @@
 import { XMarkIcon } from '@heroicons/vue/16/solid'
 import BaseButton from './BaseButton.vue'
 
-defineProps(['options', 'placeholder', 'selected'])
+interface IOptions {
+    value: number,
+    label: string
+}
+
+defineProps({
+    placeholder: {
+        default: 'Rest',
+        type: String
+    },
+    selected: Number,
+    options:{
+        required: true,
+        type: Array<IOptions>
+    },
+})
 </script>
 
 <template>

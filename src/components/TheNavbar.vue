@@ -2,7 +2,12 @@
 import NavItem from './NavItem.vue'
 import { navItems } from '../consts/navigation';
 
-defineProps(['currentPage'])
+defineProps({
+  currentPage: {
+    required: true,
+    type: String
+  }
+})
 
 const emit = defineEmits(['navigate'])
 </script>
